@@ -16,4 +16,12 @@ public class CabInvoice {
     public static void main(String[] args) {
         System.out.println("Welcome to cab invoice generator problem");
     }
+
+    public double calculateFare(Ride[] rides) {
+        double totalFare=0;
+        for (Ride ride:rides){
+            totalFare=totalFare+this.calculateFare(ride.distance,ride.time);
+        }
+        return totalFare;
+    }
 }
