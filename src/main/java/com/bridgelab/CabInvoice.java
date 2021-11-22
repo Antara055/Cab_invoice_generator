@@ -7,21 +7,25 @@ public class CabInvoice {
 
     double calculateFare(double distance, int time){
         double totalFare=((distance*COST_PER_KM)+(time*COST_PER_MINUTE));
-        if (totalFare>MINIMUM_FARE)
-            return totalFare;
-        else {
-            return MINIMUM_FARE;
-        }
+        return Math.max(totalFare, MINIMUM_FARE);
     }
     public static void main(String[] args) {
         System.out.println("Welcome to cab invoice generator problem");
     }
 
-    public double calculateFare(Ride[] rides) {
+    public double calculateTotalFare(Ride[] rides) {
         double totalFare=0;
         for (Ride ride:rides){
             totalFare=totalFare+this.calculateFare(ride.distance,ride.time);
         }
         return totalFare;
+    }
+
+    public InvoiceSummary calculateFare(Ride[] rides) {
+        double totalFare=0;
+        for (Ride ride:rides){
+            totalFare=totalFare+this.calculateFare(ride.distance,ride.time);
+        }
+        return new InvoiceSummary(rides.length, totalFare);
     }
 }
